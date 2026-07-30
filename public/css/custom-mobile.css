@@ -1,0 +1,202 @@
+
+
+/* 1. ขยายขนาดฟอนต์พื้นฐานให้เต็มตาอ่านง่าย (Typography) */
+html, body {
+    font-size: 16px !important; /* ค่าเดิมของ Hexadash มักจะเล็กไป ให้บังคับเป็น 16px */
+    color: #404040;
+}
+
+h5, .h5 { font-size: 1.25rem !important; font-weight: 700 !important; }
+h6, .h6 { font-size: 1.1rem !important; font-weight: 700 !important; }
+
+/* ขยายตัวอักษรใน Card และ Label */
+.card-body { font-size: 16px; }
+.form-label, .fw-bold { font-size: 16px !important; color: #1a1a1a; }
+.small, small { font-size: 14px !important; }
+
+/* 2. ปรับปุ่มให้ดูละมุน ทันสมัย และกดง่ายขึ้น (Smooth Buttons) */
+.btn {
+    border-radius: 12px !important; /* ลบมุมให้โค้งมนดูนุ่มนวลขึ้น */
+    font-weight: 600 !important;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease-in-out !important; /* เพิ่มแอนิเมชันเวลาสมูทขึ้น */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04) !important; /* เงาบางๆ ให้ปุ่มดูลอยขึ้นมา */
+}
+
+/* ปรับขนาดความสูงของปุ่มให้เหมาะกับนิ้วกด */
+.btn-lg {
+    padding: 14px 24px !important;
+    font-size: 16px !important;
+}
+.btn-sm {
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+}
+
+/* ปรับโทนสีปุ่มให้ดูแพงขึ้น (ปรับ Hex Code เล็กน้อย) */
+.btn-primary {
+    background-color: #5F63F2 !important; /* สีม่วงน้ำเงินเอกลักษณ์ของ Hexadash */
+    border-color: #5F63F2 !important;
+}
+.btn-primary:hover, .btn-primary:active {
+    background-color: #4A4ED4 !important;
+    transform: translateY(-2px); /* เอฟเฟกต์ปุ่มเด้งขึ้นตอนกด */
+}
+
+.btn-success {
+    background-color: #20C997 !important; /* สีเขียวที่ดูซอฟต์สบายตา */
+    border-color: #20C997 !important;
+    color: #fff !important;
+}
+.btn-success:hover, .btn-success:active {
+    background-color: #1AA37A !important;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #FF4D4F !important;
+    border-color: #FF4D4F !important;
+}
+
+/* 3. ปรับแต่ง Card ให้ดูนุ่มนวล (Soft Cards) */
+.card {
+    border-radius: 16px !important;
+    border: none !important;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.03) !important; /* เงาฟุ้งๆ ทำให้หน้าจอมีมิติ */
+}
+
+/* 4. ปรับช่อง Input ให้ใหญ่ขึ้น (Fat Finger Inputs) */
+.form-control, .form-select {
+    border-radius: 10px !important;
+    padding: 12px 16px !important;
+    font-size: 15px !important;
+    border: 1px solid #E3E6EF !important;
+    background-color: #F8F9FB !important; /* สีพื้นหลังช่องกรอกอ่อนๆ */
+}
+.form-control:focus, .form-select:focus {
+    background-color: #FFFFFF !important;
+    border-color: #5F63F2 !important;
+    box-shadow: 0 0 0 3px rgba(95, 99, 242, 0.1) !important;
+}
+
+/* =========================================
+   สไตล์สำหรับกล่องเลือกแบบฟอร์ม (Form Selection Card)
+   ========================================= */
+
+/* สถานะปกติ (ยังไม่ถูกเลือก) */
+.form-card-label {
+    background-color: #F8F9FB !important; /* พื้นหลังสีเทาอ่อน แยกออกจากพื้นสีขาว */
+    border: 2px solid #E3E6EF !important; /* ใส่กรอบสีเทาให้ดูเป็นกล่อง */
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+}
+
+/* เอฟเฟกต์ตอนเอานิ้วแตะ/เมาส์ชี้ */
+.form-card-label:hover {
+    background-color: #F4F5F7 !important;
+    border-color: #D3D8E6 !important;
+}
+
+/* สถานะเมื่อถูกเลือก (Checked) */
+.form-check-custom .btn-check:checked + label.form-card-label {
+    background-color: #F0F4FF !important; /* ไฮไลต์พื้นหลังเป็นสีฟ้า/ม่วงอ่อนๆ */
+    border-color: #5F63F2 !important; /* เปลี่ยนสีกรอบเป็นสีหลัก (Primary) */
+    box-shadow: 0 4px 12px rgba(95, 99, 242, 0.15) !important; /* เพิ่มเงาให้ดูเด้งขึ้นมา */
+}
+
+/* โชว์ไอคอนติ๊กถูกเมื่อถูกเลือก */
+.form-check-custom .btn-check:checked + label .icon-check {
+    display: block !important;
+}
+
+/* =========================================
+   ปราบพยศ Select2 ให้ Mobile-Friendly (Chunkier Look)
+   ========================================= */
+
+/* 1. ปรับกล่องค้นหาหลักให้ใหญ่ขึ้นและโค้งมน (Selection Box) */
+.select2-container--bootstrap-5 .select2-selection {
+    min-height: 54px !important; /* อ้วนขึ้นเหมาะกับนิ้วกด */
+    border-radius: 12px !important; /* โค้งมนเข้ากับกล่องแบบฟอร์ม */
+    padding: 8px 12px !important;
+    border: 1px solid #E3E6EF !important; /* กรอบสีเทาอ่อน */
+    background-color: #FFFFFF !important;
+    font-size: 16px !important; /* ตัวอักษรใหญ่เต็มตา */
+    transition: all 0.2s ease;
+}
+
+/* 2. จัดตำแหน่งไอคอนค้นหาและ Placeholder */
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+    color: #1a1a1a !important;
+    line-height: normal !important;
+    margin-left: 0 !important;
+}
+.select2-container--bootstrap-5 .select2-selection__placeholder {
+    color: #8c8c8c !important;
+}
+
+/* 3. จัดตำแหน่งลูกศรด้านขวาใหม่ */
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow {
+    top: 50% !important;
+    transform: translateY(-50%);
+    right: 12px !important;
+    border-color: #E3E6EF transparent transparent transparent !important;
+}
+
+/* 4. สถานะเมื่อ Focus (กดลงไป) */
+.select2-container--bootstrap-5 .select2-selection:focus,
+.select2-container--bootstrap-5.select2-container--open .select2-selection {
+    border-color: #5F63F2 !important; /* สีกรอบ Primary */
+    box-shadow: 0 0 0 4px rgba(95, 99, 242, 0.1) !important; /* เงาฟุ้งๆ */
+}
+
+/* 5. ปรับปรุงกล่อง Dropdown และผลลัพธ์ (Results) */
+.select2-container--bootstrap-5 .select2-dropdown {
+    border-radius: 12px !important;
+    border: 1px solid #E3E6EF !important;
+    margin-top: 4px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+}
+
+/* 6. ปรับช่องค้นหาด้านใน Dropdown (ถ้ามี) */
+.select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field {
+    border-radius: 8px !important;
+    padding: 10px !important;
+}
+
+/* 7. ปรับสไตล์ของรายการผลลัพธ์ (Options) */
+.select2-container--bootstrap-5 .select2-results__option {
+    padding: 12px !important; /* ใหญ่ขึ้นกดง่าย */
+    font-size: 15px !important;
+    border-radius: 8px;
+}
+
+/* สถานะเมื่อผลลัพธ์ถูกเลือก (Selected) */
+.select2-container--bootstrap-5 .select2-results__option--highlighted {
+    background-color: #F0F4FF !important; /* ไฮไลต์สีฟ้าอ่อน */
+    color: #5F63F2 !important; /* ตัวอักษรสี Primary */
+}
+
+/* =========================================
+   สไตล์สำหรับเมนูหมวดหมู่ (Category Tabs)
+   ========================================= */
+/* สถานะปกติ (ยังไม่ได้เลือก) */
+.category-tab {
+    background-color: #ffffff !important; /* พื้นหลังสีขาวล้วนให้ลอยเด่นจากพื้นหลังจอ */
+    border: 1px solid #D9E0E7 !important; /* เส้นขอบสีเทาเข้มขึ้นมานิดนึงให้อ่านง่าย */
+    color: #5A6A85 !important; /* ตัวหนังสือสีเทาเข้ม */
+    transition: all 0.25s ease;
+}
+
+/* เอฟเฟกต์ตอนเอานิ้วแตะ/เมาส์ชี้ */
+.category-tab:hover {
+    background-color: #F4F5F7 !important;
+    color: #5F63F2 !important; /* เปลี่ยนตัวอักษรเป็นสี Primary */
+}
+
+/* สถานะ Active (หมวดหมู่ที่กำลังดูอยู่) */
+.category-tab.active-tab {
+    background-color: #5F63F2 !important; /* สีม่วง Primary ของ Hexadash */
+    border-color: #5F63F2 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(95, 99, 242, 0.25) !important; /* เงาให้ปุ่มดูมีมิติ */
+}

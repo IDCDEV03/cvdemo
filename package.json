@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "VITE_CJS_TRACE=true vite build"
+  },
+  "devDependencies": {
+    "axios": "^0.25",
+    "laravel-vite-plugin": "^1.2.0",
+    "lodash": "^4.17.19",
+    "postcss": "^8.1.14",
+    "sass": "^1.54.4",
+    "sass-loader": "^12.6.0",
+    "vite": "^4.4.9"
+  }
+}
