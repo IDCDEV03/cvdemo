@@ -10,8 +10,8 @@
 
      if ($user->role === Role::Agency->value) {
          $agencyLogo = $user->logo_agency;
-     } elseif ($user->agency_id) {
-         $agency = DB::table('users')->where('id', $user->agency_id)->first();
+     } elseif ($user->agency_user_id) {
+         $agency = DB::table('users')->where('id', $user->agency_user_id)->first();
          $agencyLogo = $agency?->logo_agency;
      }
  @endphp

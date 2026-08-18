@@ -117,7 +117,6 @@ class AgentCompanyController extends Controller
             'role' => 'company',
             'company_code' => $companyId,
             'agency_user_id' => $agent_id,
-            'agency_id' => $agent_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

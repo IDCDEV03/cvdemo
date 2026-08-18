@@ -206,12 +206,12 @@ class PageController extends Controller
             $agency = DB::table('users')->where('id', Auth::id())->first();
 
             $managers = DB::table('users')
-                ->where('agency_id', $id)
+                ->where('agency_user_id', $id)
                 ->where('role', 'manager')
                 ->get();
 
             $users = DB::table('users')
-                ->where('agency_id', $id)
+                ->where('agency_user_id', $id)
                 ->where('role', 'user')
                 ->get();
             return view('pages.agency.index', compact('agency', 'managers', 'users'));

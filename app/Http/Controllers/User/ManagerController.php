@@ -22,7 +22,7 @@ class ManagerController extends Controller
     public function company_list($id)
     {
         $company_list = DB::table('users')
-            ->where('agency_id', '=', $id)
+            ->where('agency_user_id', '=', $id)
             ->where('role', '=', 'company')
             ->orderBy('updated_at', 'DESC')
             ->get();
@@ -57,7 +57,7 @@ class ManagerController extends Controller
 
         DB::table('company_details')->insert([
             'user_created_id' => Auth::id(),
-            'agency_id' => $agent->agency_id,
+            'agency_id' => $agent->agency_user_id,
             'company_id' => $comp_id,
             'company_address' => $request->company_address,
             'company_province' => $request->company_province,
@@ -77,11 +77,11 @@ class ManagerController extends Controller
             'user_phone' => $request->company_phone,
             'role' => 'company',
             'company_code' => $comp_id,
-            'agency_id' => $agent->agency_id,
+            'agency_user_id' => $agent->agency_user_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('manager.company_list', ['id' => $agent->agency_id])->with('success', 'บันทึกสำเร็จ');
+        return redirect()->route('manager.company_list', ['id' => $agent->agency_user_id])->with('success', 'บันทึกสำเร็จ');
     }
 }

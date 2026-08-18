@@ -17,7 +17,7 @@ class CheckRecordNotifier
         // ผู้รับ: role = 'supply' ใน supply เดียวกัน
         $recipients = User::query()
             ->where('role', 'supply')
-            ->where('agency_id', $chkRecordRow['agency_id'])
+            ->where('agency_user_id', $chkRecordRow['agency_id'])
             ->get();
 
         if ($recipients->isEmpty()) {

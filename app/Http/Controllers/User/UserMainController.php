@@ -153,7 +153,7 @@ class UserMainController extends Controller
             'veh_status' => '1',
             'veh_type' => $request->vehicle_type,
             'veh_image' => $fileName,
-            'agency_id' => $agent->agency_id,
+            'agency_id' => $agent->agency_user_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

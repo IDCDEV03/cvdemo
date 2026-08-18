@@ -52,7 +52,7 @@ class RepairController extends Controller
 
         $manager_list = DB::table('users')
             ->where('role', 'manager')
-            ->where('agency_id', Auth::user()->agency_id)
+            ->where('agency_user_id', Auth::user()->agency_user_id)
             ->orderBy('name','asc')
             ->get();
 

@@ -160,12 +160,12 @@ class ManageUserController extends Controller
         }
 
         $managers = DB::table('users')
-            ->where('agency_id', $agency->id)
+            ->where('agency_user_id', $agency->id)
             ->where('role', 'manager')
             ->get();
 
         $users = DB::table('users')
-            ->where('agency_id', $agency->id)
+            ->where('agency_user_id', $agency->id)
             ->where('role', 'user')
             ->get();
 
@@ -229,7 +229,7 @@ class ManageUserController extends Controller
             'password' => Hash::make($request->password),
             'user_phone' => $request->phone,
             'role' => $request->role,
-            'agency_id' => $agency,
+            'agency_user_id' => $agency,
             'profile_image' => $avatarPath,
             'signature_image' => $signaturePath,
             'created_at' => Carbon::now(),
@@ -246,6 +246,6 @@ class ManageUserController extends Controller
         
         DB::table('users')->where('id', $id)->delete();
 
-        return redirect()->route('admin.agency.show', $member->agency_id)->with('success', 'ลบผู้ใช้งานเรียบร้อย');
+        return redirect()->route('admin.agency.show', $member->agency_user_id)->with('success', 'ลบผู้ใช้งานเรียบร้อย');
     }
 }

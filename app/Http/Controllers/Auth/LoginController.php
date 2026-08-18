@@ -43,7 +43,7 @@ class LoginController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'role' => 'user',
-            'agency_id' => $request->agency_id,
+            'agency_user_id' => $request->agency_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

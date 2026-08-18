@@ -40,7 +40,7 @@ class AgencyMainController extends Controller
                 $query->where('form_open', 'public')
                     ->orWhere(function ($q) use ($user) {
                         $q->where('form_open', 'private')
-                            ->where('user_id', $user->agency_id);
+                            ->where('user_id', $user->agency_user_id);
                     });
             })
             ->orderBy('form_name', 'ASC')
