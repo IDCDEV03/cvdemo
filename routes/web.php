@@ -10,6 +10,7 @@ use App\Http\Controllers\User\RepairController;
 use App\Http\Controllers\User\VehiclesController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\ManageCompanyController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\User\ManageAccountController;
 use App\Http\Controllers\User\UserProfileController;
@@ -79,7 +80,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::POST('/sup_update/{id}/{tab}', [ManageCompanyController::class, 'SupplyUpdate'])->name('admin.sup_update');
 
     Route::get('/sup_list/{id}', [ManageCompanyController::class, 'SupList'])->name('admin.sup_list');
-    Route::get('/sup-create/{id}', [ManageCompanyController::class, 'SupCreate'])->name('admin.sup_create');
+    Route::get('/sup-create/{id?}', [ManageCompanyController::class, 'SupCreate'])->name('admin.sup_create');
     Route::post('/supply/insert', [ManageCompanyController::class, 'SupInsert'])->name('admin.sup_insert');
 
     // CRUD หน่วยงาน
@@ -98,6 +99,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/members/{id}/edit', [ManageUserController::class, 'editMember'])->name('admin.member.edit');
     Route::put('/members/{id}', [ManageUserController::class, 'updateMember'])->name('admin.member.update');
     Route::delete('/members/{id}', [ManageUserController::class, 'destroyMember'])->name('admin.member.destroy');
+
+    //CRUD จัดการผู้ใช้งานทั้งระบบ
+    Route::get('/users', [UserManagementController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{id}/edit', [UserManagementController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [UserManagementController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{id}', [UserManagementController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/users/{id}/status/{status}', [UserManagementController::class, 'toggleStatus'])->name('admin.users.status');
 
     //module ประกาศ
     Route::get('/announcement', [AdminDashboardController::class, 'AnnouncementPage'])->name('admin.announce');
