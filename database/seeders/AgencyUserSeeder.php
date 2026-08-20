@@ -43,7 +43,7 @@ class AgencyUserSeeder extends Seeder
             ]);
 
               DB::table('users')->where('id', $id)->update([
-                'agency_id' => $id,
+                'agency_user_id' => $id,
             ]);
         }
 

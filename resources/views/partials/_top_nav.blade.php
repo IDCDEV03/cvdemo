@@ -8,11 +8,14 @@
 
      $user = Auth::user();
 
-     if ($user->role === Role::Agency->value) {
+     if ($user->logo_agency) {
          $agencyLogo = $user->logo_agency;
-     } elseif ($user->agency_id) {
-         $agency = DB::table('users')->where('id', $user->agency_id)->first();
+     } elseif ($user->agency_user_id) {
+         $agency = DB::table('users')->where('id', $user->agency_user_id)->first();
          $agencyLogo = $agency?->logo_agency;
+     } elseif ($user->role === Role::Inspector->value && $user->company_code) {
+         $owner = DB::table('users')->where('company_code', $user->company_code)->where('role', 'company')->first();
+         $agencyLogo = $owner->logo_agency ?? null;
      }
  @endphp
  <nav class="navbar navbar-light">
@@ -28,9 +31,9 @@
                  </a>
              @else
                  <a class="navbar-brand" href="#">
-                     <img class="dark" src="{{ asset('assets/img/bua2026.jpg') }}"
+                     <img class="dark" src="{{ asset('id_inspection.png') }}"
                          style="height: 40px; object-fit: contain;" alt="img">
-                     <img class="light" src="{{ asset('assets/img/bua2026.jpg') }}"
+                     <img class="light" src="{{ asset('id_inspection.png') }}"
                          style="height: 40px; object-fit: contain;" alt="img">
                  </a>
              @endif

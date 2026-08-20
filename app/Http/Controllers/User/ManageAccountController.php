@@ -84,7 +84,7 @@ class ManageAccountController extends Controller
             'password' => Hash::make($request->password),
             'user_phone' => $request->phone,
             'role' => $request->role,
-            'agency_id' => $agency,
+            'agency_user_id' => $agency,
             'profile_image' => $avatarPath,
             'signature_image' => $signaturePath,
             'created_at' => Carbon::now(),
@@ -105,7 +105,7 @@ class ManageAccountController extends Controller
     public function ManagerList()
     {
         $agency_id = Auth::id();
-        $manager = DB::table('users')->where('agency_id', $agency_id)
+        $manager = DB::table('users')->where('agency_user_id', $agency_id)
             ->where('role', 'manager')
             ->get();
 
@@ -115,7 +115,7 @@ class ManageAccountController extends Controller
     public function UserList()
     {
         $agency_id = Auth::id();
-        $user_list = DB::table('users')->where('agency_id', $agency_id)
+        $user_list = DB::table('users')->where('agency_user_id', $agency_id)
             ->where('role', 'user')
             ->get();
 

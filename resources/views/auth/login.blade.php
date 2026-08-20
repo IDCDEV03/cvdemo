@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CV Standard | ID Drives - ระบบตรวจมาตรฐานรถ</title>
+    <title>[UAT] CV Standard | ID Drives - ระบบตรวจมาตรฐานรถ</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/plugin.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
@@ -28,8 +28,9 @@
                             </div>
                             <div class="card border-0">
                                 <div class="card-header">
-                                    <div class="edit-profile__title">
+                                    <div class="edit-profile__title d-flex align-items-center justify-content-between flex-wrap gap-2">
                                         <span class="fs-20 fw-bold">เข้าสู่ระบบ Check Vehicles Standard</span>
+                                        <span class="badge badge-warning">สำหรับทดสอบ</span>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -67,7 +68,7 @@
                                                         <span class="checkbox-text">จดจำการเข้าสู่ระบบ</span>
                                                     </label>
                                                 </div>
-                                                <a href="#">forget password?</a>
+                                               
                                             </div>
                                             <div
                                                 class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
