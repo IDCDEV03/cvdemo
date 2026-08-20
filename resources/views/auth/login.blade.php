@@ -30,7 +30,7 @@
                                 <div class="card-header">
                                     <div class="edit-profile__title d-flex align-items-center justify-content-between flex-wrap gap-2">
                                         <span class="fs-20 fw-bold">เข้าสู่ระบบ Check Vehicles Standard</span>
-                                        <span class="badge badge-warning">สำหรับทดสอบ</span>
+                                         <span class="dm-tag tag-warning ">สำหรับทดสอบ</span>
                                     </div>
                                 </div>
                                 <div class="card-body">
