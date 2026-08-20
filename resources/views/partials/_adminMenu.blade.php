@@ -8,17 +8,11 @@
             <span><i class="fas fa-bars"></i> เมนู</span>
         </li>
 
-        <li class="has-child {{ Request::is(app()->getLocale() . '/dashboards/*') ? 'open' : '' }}">
-            <a href="#" class="{{ Request::is(app()->getLocale() . '/dashboards/*') ? 'active' : '' }}">
+        <li>
+            <a href="{{ route('admin.dashboard') }}" class="{{ Request::is(app()->getLocale() . '/dashboard') ? 'active' : '' }}">
                 <span class="nav-icon uil uil-create-dashboard"></span>
                 <span class="menu-text">หน้าหลัก</span>
-                <span class="toggle-icon"></span>
             </a>
-            <ul>
-                <li class="{{ Request::is(app()->getLocale() . '/dashboard') ? 'active' : '' }}"><a
-                        href="{{ route('admin.dashboard')}}">Home</a></li>
-
-            </ul>
         </li>
 
        <!-- <li>
@@ -34,6 +28,13 @@
                 <span class="nav-icon uil uil-building"></span>
                 <span class="menu-text">รายการบริษัท</span>
 
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('admin.users.index') }}" class="">
+                <span class="nav-icon uil uil-users-alt"></span>
+                <span class="menu-text">จัดการผู้ใช้งาน</span>
             </a>
         </li>
 

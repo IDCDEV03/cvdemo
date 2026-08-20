@@ -285,28 +285,38 @@ class ManageCompanyController extends Controller
     return view('pages.admin.SupplyList', compact('company_name','supply_list'));
     }
 
-    public function SupCreate($id)
+    public function SupCreate($id = null)
     {
-         $company_name = DB::table('users')
-        ->where('company_code','=',$id)
-        ->first();
-         return view('pages.admin.SupplyCreate', compact('company_name'));
+        $companies = DB::table('company_details')
+            ->select('company_id', 'company_name')
+            ->orderBy('company_name')
+            ->get();
+
+        return view('pages.admin.SupplyCreate', compact('companies', 'id'));
     }
 
     public function SupInsert(Request $request)
     {
-
-        //เช็ค username ซ้ำ 
-        $usernameExists = DB::table('users')->where('username', $request->company_user)->exists();
-
-        if ($usernameExists) {
-            return back()
-                ->withInput()
-                ->with('error', 'Username นี้มีอยู่แล้ว กรุณาเลือกชื่ออื่น');
-        }
+        $request->validate([
+            'company_code'    => 'required',
+            'supply_name'     => 'required|string|max:200',
+            'supply_address'  => 'nullable|string',
+            'supply_phone'    => 'nullable|string|max:50',
+            'supply_email'    => 'nullable|email|max:50',
+            'supply_status'   => 'required|in:0,1',
+            'company_user'    => 'required|string|max:30|unique:users,username',
+            'supply_password' => 'required|string|min:4',
+            'supply_logo'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ], [
+            'company_code.required'    => 'กรุณาเลือกบริษัทฯว่าจ้าง',
+            'supply_name.required'     => 'กรุณากรอกชื่อ Supply',
+            'company_user.required'    => 'กรุณากรอก Username',
+            'company_user.unique'      => 'Username นี้ถูกใช้งานแล้ว',
+            'supply_password.required' => 'กรุณากรอกรหัสผ่าน',
+            'supply_password.min'      => 'รหัสผ่านต้องมีอย่างน้อย 4 ตัวอักษร',
+        ]);
 
         $sup_id = 'SUP-' . Str::upper(Str::random(10));
-
 
         $upload_location = 'logo/';
 
@@ -320,41 +330,52 @@ class ManageCompanyController extends Controller
             $fileName = $upload_location.$newName;
         }
 
+        DB::beginTransaction();
+        try {
+            DB::table('supply_datas')->insert([
+                'company_code' => $request->company_code,
+                'sup_id' => $sup_id,
+                'supply_name' => $request->supply_name,
+                'supply_logo' => $fileName,
+                'supply_address' => $request->supply_address,
+                'supply_phone' => $request->supply_phone,
+                'supply_email' => $request->supply_email,
+                'supply_status' => $request->supply_status,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
 
-        DB::table('supply_datas')->insert([
-            'company_code' => $request->company_code,
-            'sup_id' => $sup_id,
-            'supply_name' => $request->supply_name,
-            'supply_logo' => $fileName,
-            'supply_address' => $request->supply_address,
-            'supply_phone' => $request->supply_phone,
-            'supply_email' => $request->supply_email,
-            'supply_status' => '1',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+            DB::table('users')->insert([
+                'user_id' => $sup_id,
+                'username' => $request->company_user,
+                'prefix' => '-',
+                'name' => $request->supply_name,
+                'lastname' => '-',
+                'user_status' => $request->supply_status,
+                'email' => $request->supply_email,
+                'password' => Hash::make($request->supply_password),
+                'user_phone' => $request->supply_phone,
+                'role' => 'supply',
+                'company_code' => $request->company_code,
+                'agency_user_id' => '5',
+                'logo_agency' => $fileName,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
 
+            DB::commit();
 
-        DB::table('users')->insert([
-            'user_id' => $sup_id,
-            'username' => $request->company_user,
-            'prefix' => '-',
-            'name' => $request->supply_name,
-            'lastname' => '-',
-            'user_status' => '1',
-            'email' => $request->supply_email,
-            'password' => Hash::make($request->supply_password),
-            'user_phone' => $request->supply_phone,
-            'role' => 'supply',
-            'company_code' => $request->company_code,
-            'agency_user_id' => '5',
-            'logo_agency' => $fileName,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+            return redirect()->route('admin.supply_all')
+                ->with('success', "เพิ่ม Supply \"{$request->supply_name}\" สำเร็จ");
+        } catch (\Exception $e) {
+            DB::rollBack();
 
-        return redirect()->route('admin.sup_list',['id'=>$request->company_code])->with('success', 'บันทึกสำเร็จ');
+            if ($fileName && file_exists($fileName)) {
+                unlink($fileName);
+            }
 
+            return back()->with('error', 'เกิดข้อผิดพลาด: ' . $e->getMessage())->withInput();
+        }
     }
 
 
